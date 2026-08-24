@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Early “No-OS” Era (1940s–1950s) | Group 01</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=VT323&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root[data-theme="dark"] {
+            --bg-base: #11100E;
+            --card-bg: #1B1815;
+            --card-border: #443B33;
+            --amber: #FFB000;
+            --amber-glow: rgba(255, 176, 0, 0.4);
+            --green: #33FF66;
+            --green-glow: rgba(51, 255, 102, 0.3);
+            --cyan: #38BDF8;
+            --text-main: #F4ECE1;
+            --text-muted: #A89B8C;
+            --table-header-bg: #2B241D;
+            --highlight-box: rgba(255, 176, 0, 0.08);
+            --scanline-op: 0.35;
+            --hover-bg: rgba(255, 176, 0, 0.14);
+            --hover-text: #FFFFFF;
+            --dim-text: rgba(244, 236, 225, 0.45);
+        }
+
+        :root[data-theme="light"] {
+            --bg-base: #EFE6D8;
+            --card-bg: #FCF8F2;
+            --card-border: #B8A68B;
+            --amber: #A34E00;
+            --amber-glow: rgba(163, 78, 0, 0.25);
+            --green: #0F6E33;
+            --green-glow: rgba(15, 110, 51, 0.2);
+            --cyan: #0369A1;
+            --text-main: #14110E;
+            --text-muted: #4F4538;
+            --table-header-bg: #E7D9C3;
+            --highlight-box: rgba(163, 78, 0, 0.07);
+            --scanline-op: 0.08;
+            --hover-bg: #F5E5CF;
+            --hover-text: #050504;
+            --dim-text: #594F42;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Courier Prime', monospace;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            user-select: none;
+        }
+
+        body::before {
+            content: " ";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 14, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+            opacity: var(--scanline-op);
+        }
+
+        #hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 56px;
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 1000;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+        }
+
+        .badge-tag {
+            color: var(--amber);
+            border: 1px solid var(--amber);
+            padding: 3px 8px;
+            border-radius: 2px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hud-center {
+            display: flex;
+            gap: 2rem;
+            color: var(--text-muted);
+        }
+
+        .timer-display {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--amber);
+            color: var(--amber);
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 54px;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--amber), var(--green));
+            width: 0%;
+            transition: width 0.35s ease;
+            z-index: 1001;
+        }
+
+        #deck {
+            position: relative;
+            width: 100vw;
+            height: calc(100vh - 56px);
+            margin-top: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 95vw;
+            max-width: 1560px;
+            height: 87vh;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            padding: 1.8rem 2.5rem;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.98);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .serial-tag {
+            font-family: 'VT323', monospace;
+            color: var(--amber);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            display: inline-block;
+            border-bottom: 1px dashed var(--amber);
+            margin-bottom: 0.2rem;
+        }
+
+        .slide-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 2.3rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.15rem;
+            font-weight: 700;
+        }
+
+        .slide-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .grid-2col {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 2rem;
+            align-items: stretch;
+            margin-bottom: 0.4rem;
+        }
+
+        .grid-4col {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            align-items: stretch;
+            margin-bottom: 0.4rem;
+        }
+
+        .chassis-panel {
+            background: var(--highlight-box);
+            border: 1px solid var(--card-border);
+            padding: 1.4rem 1.6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 4px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .chassis-panel h4 {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--amber);
+            font-size: 1.35rem;
+            margin-bottom: 1.1rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .timeline-card {
+            background: var(--highlight-box);
+            border: 1px solid var(--card-border);
+            padding: 1.1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: var(--amber);
+            background: var(--hover-bg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 15px var(--amber-glow);
+        }
+
+        .timeline-header {
+            border-bottom: 1px dashed var(--card-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .timeline-year {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: 1px;
+        }
+
+        .timeline-topic {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-top: 0.2rem;
+            color: var(--text-main);
+        }
+
+        .timeline-photo {
+            flex: 1;
+            min-height: 180px;
+            max-height: 240px;
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            margin: 0.8rem 0;
+            background: #000;
+            position: relative;
+        }
+
+        .timeline-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(85%) contrast(125%);
+            transition: filter 0.25s ease;
+        }
+
+        .timeline-card:hover .timeline-photo img {
+            filter: grayscale(10%) contrast(110%);
+        }
+
+        .timeline-photo-tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(16, 15, 14, 0.9);
+            padding: 4px 8px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--amber);
+            border-top: 1px solid var(--card-border);
+        }
+
+        .timeline-desc {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--card-border);
+        }
+
+        .timeline-card:hover .timeline-desc {
+            color: var(--hover-text);
+            font-weight: 600;
+        }
+
+        .vintage-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .vintage-list li {
+            display: flex;
+            align-items: flex-start;
+            padding: 8px 12px;
+            font-size: 1.15rem;
+            color: var(--text-main);
+            line-height: 1.5;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 4px solid transparent;
+            background: transparent;
+        }
+
+        .vintage-list li .bullet-badge {
+            flex-shrink: 0;
+            color: var(--green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-right: 14px;
+            user-select: none;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .vintage-list li .bullet-content {
+            flex: 1;
+        }
+
+        .vintage-list:hover li:not(:hover) {
+            color: var(--dim-text);
+            opacity: 0.6;
+        }
+
+        .vintage-list li:hover {
+            color: var(--hover-text) !important;
+            font-weight: 700;
+            background: var(--hover-bg);
+            border-left: 4px solid var(--amber);
+            transform: translateX(8px) scale(1.015);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .vintage-list li:hover .bullet-badge {
+            color: var(--amber);
+            transform: scale(1.15);
+        }
+
+        .photo-chassis {
+            position: relative;
+            border: 2px solid var(--card-border);
+            background: #000;
+            overflow: hidden;
+            height: 100%;
+            min-height: 320px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .photo-chassis:hover {
+            border-color: var(--amber);
+            box-shadow: 0 0 20px var(--amber-glow);
+            transform: scale(1.01);
+        }
+
+        .photo-chassis img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(85%) contrast(120%);
+            transition: filter 0.3s ease;
+        }
+
+        .photo-chassis:hover img {
+            filter: grayscale(10%) contrast(110%);
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(16, 15, 14, 0.92);
+            padding: 8px 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--amber);
+            border-top: 1px solid var(--card-border);
+            z-index: 2;
+        }
+
+        table.hardware-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.15rem;
+            margin-top: 0.5rem;
+        }
+
+        table.hardware-table tbody:hover tr:not(:hover) {
+            opacity: 0.45;
+            color: var(--dim-text);
+        }
+
+        table.hardware-table tr {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        table.hardware-table tr:hover {
+            background: var(--hover-bg) !important;
+            font-weight: 700;
+            color: var(--hover-text) !important;
+            transform: scale(1.015);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        table.hardware-table tr:hover td {
+            border-bottom: 1px solid var(--amber);
+            color: var(--hover-text) !important;
+        }
+
+        table.hardware-table th {
+            background: var(--table-header-bg);
+            color: var(--amber);
+            padding: 12px 14px;
+            text-align: left;
+            font-family: 'Share Tech Mono', monospace;
+            border-bottom: 2px solid var(--amber);
+            letter-spacing: 1px;
+            font-size: 1.25rem;
+        }
+
+        table.hardware-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-main);
+        }
+
+        .lamp {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--amber);
+            box-shadow: 0 0 10px var(--amber);
+            margin-right: 8px;
+        }
+
+        .slide-footer {
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .thank-you-box {
+            border: 3px double var(--amber);
+            background: var(--highlight-box);
+            padding: 2.5rem;
+            text-align: center;
+            border-radius: 6px;
+            animation: finalePulse 1.8s infinite alternate ease-in-out;
+        }
+
+        @keyframes finalePulse {
+            0% {
+                box-shadow: 0 0 15px rgba(255, 176, 0, 0.2);
+            }
+
+            100% {
+                box-shadow: 0 0 35px var(--amber-glow);
+                border-color: var(--green);
+            }
+        }
+
+        #nav-hints {
+            position: fixed;
+            bottom: 14px;
+            right: 20px;
+            display: flex;
+            gap: 0.6rem;
+            z-index: 1000;
+        }
+
+        .key-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .key-btn:hover {
+            border-color: var(--amber);
+            color: var(--amber);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar HUD -->
+    <div id="hud">
+        <div class="badge-tag">CCS2303 // GROUP 01</div>
+        <div class="hud-center">
+            <span>TOPIC: THE EARLY “NO-OS” ERA (1940s–1950s)</span>
+            <span>⏱ TIME: <span id="slide-timer" class="timer-display">00:00</span></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1.2rem;">
+            <button class="theme-toggle-btn" onclick="toggleTheme()" title="Press 'L' to switch">
+                <span id="theme-icon">☼</span> <span id="theme-text">LIGHT MODE</span>
+            </button>
+            <span id="slide-counter" style="color: var(--amber); font-weight:700; font-size:1.1rem;">01 / 12</span>
+        </div>
+    </div>
+    <div id="progress-bar"></div>
+
+    <!-- Deck Container -->
+    <div id="deck">
+
+        <!-- SLIDE 1 -->
+        <section class="slide active">
+            <div>
+                <div class="serial-tag">DOC-REF // CCS2303 · UNIT-01</div>
+                <h1 class="slide-title">THE EARLY “NO-OS” ERA <span style="color:var(--amber);">(1940s–1950s)</span>
+                </h1>
+                <p class="slide-subtitle">HOW COMPUTERS WORKED BEFORE OPERATING SYSTEM ABSTRACTION</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>OPERATIONAL LOG // GROUP 01 PRESENTERS</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>MEMBER
+                                    1:</strong> [Name] (Reg: xxxx/xxxx) — <em>Concepts & Chronology</em></span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>MEMBER
+                                    2:</strong> [Name] (Reg: xxxx/xxxx) — <em>ENIAC Architecture & Wiring</em></span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>MEMBER
+                                    3:</strong> [Name] (Reg: xxxx/xxxx) — <em>Original Programmers & UNIVAC</em></span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>MEMBER
+                                    4:</strong> [Name] (Reg: xxxx/xxxx) — <em>Bottlenecks & Human OS</em></span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>MEMBER
+                                    5:</strong> [Name] (Reg: xxxx/xxxx) — <em>Batch Progression & Conclusion</em></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="photo-chassis">
+                    <img id="img-slide1" alt="ENIAC Room" referrerpolicy="no-referrer">
+                    <div class="photo-label">ARCHIVAL PLATE: ENIAC AT UNIV. OF PENNSYLVANIA (1946)</div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 1</span>
+                <span>TARGET DURATION: 15s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 2 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">THEORY // HARDWARE PARADIGM</div>
+                <h2 class="slide-title">WHAT WAS THE “NO-OS” ERA?</h2>
+                <p class="slide-subtitle">DIRECT HARDWARE EXECUTION WITHOUT SUPERVISORY CODE</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>BARE-METAL PRINCIPLES</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Zero
+                                    Abstraction Layer:</strong> No supervisor, device drivers, or system calls.</span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Direct Hardware
+                                    Control:</strong> Programmers manually set registers, memory cycles, and
+                                timing.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Strict
+                                    Uniprogramming:</strong> The machine handled only one job at a time.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Physical
+                                    Setup:</strong> Machine setup required manual patch cords and rotary
+                                switches.</span></li>
+                    </ul>
+                </div>
+                <div class="chassis-panel" style="border-color: var(--amber);">
+                    <h4><span class="lamp"></span>PRIMARY DEFINITION</h4>
+                    <p style="font-size: 1.2rem; font-style: italic; line-height: 1.65; color: var(--text-main);">
+                        "A foundational computing era where machines operated without intermediate supervisory software,
+                        requiring human operators to perform all job scheduling, hardware configuration, and memory
+                        management manually."
+                    </p>
+                    <div
+                        style="margin-top: 1.5rem; text-align: center; font-family: 'VT323', monospace; font-size: 1.6rem; color: var(--green); letter-spacing: 2px;">
+                        [PROGRAMMER] ──▶ [PATCHBOARD CORD] ──▶ [BARE HARDWARE]
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 1</span>
+                <span>TARGET DURATION: 40s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 3 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">CHRONOLOGY // 1945–1956</div>
+                <h2 class="slide-title">HISTORICAL TIMELINE</h2>
+                <p class="slide-subtitle">THE DECADE OF HARDWARE EVOLUTION & ARCHITECTURAL ADVANCEMENTS</p>
+            </div>
+
+            <div class="grid-4col">
+                <!-- Milestone 1 -->
+                <div class="timeline-card" style="border-top: 4px solid var(--amber);">
+                    <div class="timeline-header">
+                        <div class="timeline-year" style="color:var(--amber);">1945–1946</div>
+                        <div class="timeline-topic">ENIAC COMPLETED</div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img id="img-timeline-1" alt="ENIAC" referrerpolicy="no-referrer">
+                        <div class="timeline-photo-tag">PLATE 01: ENIAC (UPENN)</div>
+                    </div>
+                    <div class="timeline-desc">
+                        Direct plugboard programming; manual cable routing across 40 hardware panels.
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="timeline-card" style="border-top: 4px solid var(--green);">
+                    <div class="timeline-header">
+                        <div class="timeline-year" style="color:var(--green);">LATE 1940s</div>
+                        <div class="timeline-topic">STORED-PROGRAM</div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img id="img-timeline-2" alt="Stored Program" referrerpolicy="no-referrer">
+                        <div class="timeline-photo-tag">PLATE 02: VON NEUMANN LOGIC</div>
+                    </div>
+                    <div class="timeline-desc">
+                        Von Neumann architecture introduces unified memory holding both instructions and data.
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="timeline-card" style="border-top: 4px solid var(--amber);">
+                    <div class="timeline-header">
+                        <div class="timeline-year" style="color:var(--amber);">1951</div>
+                        <div class="timeline-topic">UNIVAC I DELIVERY</div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img id="img-timeline-3" alt="UNIVAC I" referrerpolicy="no-referrer">
+                        <div class="timeline-photo-tag">PLATE 03: UNISERVO TAPE SYSTEM</div>
+                    </div>
+                    <div class="timeline-desc">
+                        First commercial stored-program computer; replaces punched cards with magnetic tape.
+                    </div>
+                </div>
+
+                <!-- Milestone 4 -->
+                <div class="timeline-card" style="border-top: 4px solid var(--green);">
+                    <div class="timeline-header">
+                        <div class="timeline-year" style="color:var(--green);">1956</div>
+                        <div class="timeline-topic">GM-NAA I/O SYSTEM</div>
+                    </div>
+                    <div class="timeline-photo">
+                        <img id="img-timeline-4" alt="IBM 704" referrerpolicy="no-referrer">
+                        <div class="timeline-photo-tag">PLATE 04: FIRST BATCH MONITOR</div>
+                    </div>
+                    <div class="timeline-desc">
+                        First rudimentary OS batch monitor created for IBM 704 to automate consecutive job runs.
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 1</span>
+                <span>TARGET DURATION: 45s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 4 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">SPECIFICATION // ARMY ORDNANCE DEPT</div>
+                <h2 class="slide-title">ENIAC: THE NO-OS ARCHITECTURE</h2>
+                <p class="slide-subtitle">ELECTRONIC NUMERICAL INTEGRATOR AND COMPUTER</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>HARDWARE INVENTORY</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span
+                                class="bullet-content"><strong>Engineers:</strong> J. Presper Eckert & John Mauchly
+                                (UPenn Moore School).</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Component
+                                    Scale:</strong> 17,468 vacuum tubes, 70,000 resistors, 1,500 relays (~30
+                                tons).</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Design
+                                    Intent:</strong> High-speed calculation of US Army artillery firing tables.</span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Zero Supervisor
+                                    Layer:</strong> No BIOS or ROM. When an accumulator faulted, execution halted
+                                entirely.</span></li>
+                    </ul>
+                </div>
+                <div class="photo-chassis">
+                    <img id="img-slide4" alt="ENIAC Panels" referrerpolicy="no-referrer">
+                    <div class="photo-label">CHASSIS DETAIL: 40 ACCUMULATOR PANELS & BUS LINES (1946)</div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 2</span>
+                <span>TARGET DURATION: 45s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 5 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">OPERATIONAL PROTOCOL // PLUGBOARDS</div>
+                <h2 class="slide-title">HOW WAS ENIAC PROGRAMMED?</h2>
+                <p class="slide-subtitle">THE 4-STEP MANUAL PIPELINE</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>MANUAL PIPELINE STAGES</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>1. Mathematical
+                                    Planning:</strong> Break differential equations down into arithmetic steps.</span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>2. Plugboard
+                                    Patching:</strong> Connect heavy 3-phase jumper cables across unit trays.</span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>3. Switch
+                                    Configuration:</strong> Set rotary function table switches for constants.</span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>4. Card
+                                    Feeding:</strong> Load constants via IBM card reader; collect punch card
+                                output.</span></li>
+                    </ul>
+                </div>
+                <div class="photo-chassis">
+                    <img id="img-slide5" alt="Operating ENIAC" referrerpolicy="no-referrer">
+                    <div class="photo-label">PLATE: OPERATORS ROUTING JUMPER CORD BUSSES (UPENN)</div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 2</span>
+                <span>TARGET DURATION: 55s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 6 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">ENGINEERING PIONEERS // SOFTWARE INVENTORS</div>
+                <h2 class="slide-title">ENIAC’S ORIGINAL SIX PROGRAMMERS</h2>
+                <p class="slide-subtitle">INVENTORS OF LOGICAL SUBROUTINES & BARE-METAL DEBUGGING</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>PIONEERING ACHIEVEMENTS</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>The
+                                    Team:</strong> Kathleen McNulty, Frances Bilas, Betty Jean Jennings, Ruth
+                                Lichterman, Betty Snyder, Marlyn Wescoff.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Invented physical
+                                subroutines and algorithmic looping on bare circuitry.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Mapped abstract
+                                flowcharts directly into physical switchboard pathways.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Pioneered low-level
+                                hardware debugging without compilers or monitors.</span></li>
+                    </ul>
+                </div>
+                <div class="photo-chassis">
+                    <img id="img-slide6" alt="Programming ENIAC" referrerpolicy="no-referrer">
+                    <div class="photo-label">PLATE: CONFIGURING THE MASTER PROGRAMMER UNIT (1946)</div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 3</span>
+                <span>TARGET DURATION: 60s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 7 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">STORED-PROGRAM ERA // 1951</div>
+                <h2 class="slide-title">UNIVAC I & MAGNETIC TAPE</h2>
+                <p class="slide-subtitle">COMMERCIAL SCALE AND MERCURY DELAY-LINE MEMORY</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>COMMERCIAL INNOVATIONS</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Universal
+                                    Automatic Computer:</strong> 1st commercial computer delivered in the US.</span>
+                        </li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Stored-Program
+                                    Logic:</strong> Stored code and data in acoustic mercury delay lines.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>UNISERVO Tape
+                                    System:</strong> High-speed magnetic metal tape replaced thousands of punched
+                                cards.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Why Still
+                                    No-OS:</strong> Loading programs and mounting tape reels still required continuous
+                                manual operator action.</span></li>
+                    </ul>
+                </div>
+                <div class="photo-chassis">
+                    <img id="img-slide7" alt="UNIVAC 1" referrerpolicy="no-referrer">
+                    <div class="photo-label">PLATE: ECKERT OPERATING UNIVAC I CONSOLE (CBS 1952)</div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 3</span>
+                <span>TARGET DURATION: 45s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 8 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">DIAGNOSTIC FAULTS // SYSTEM INEFFICIENCIES</div>
+                <h2 class="slide-title">BOTTLENECKS OF THE NO-OS ERA</h2>
+                <p class="slide-subtitle">THE STRUCTURAL FLAWS OF MANUAL COMPUTATION</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel" style="border-left: 5px solid var(--amber);">
+                    <h4 style="color:var(--amber); font-size:1.35rem;">[!] SETUP LATENCY OVERHEAD</h4>
+                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                        Computers performed calculations in milliseconds, but sat idle for hours or days while operators
+                        physically patched cables.
+                    </p>
+                </div>
+                <div class="chassis-panel" style="border-left: 5px solid var(--amber);">
+                    <h4 style="color:var(--amber); font-size:1.35rem;">[!] HUMAN ERROR PROPAGATION</h4>
+                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                        A single misplaced jumper cable or faulty switch position ruined multi-hour computational runs.
+                    </p>
+                </div>
+                <div class="chassis-panel" style="border-left: 5px solid var(--green);">
+                    <h4 style="color:var(--green); font-size:1.35rem;">[!] ZERO MEMORY BOUNDARIES</h4>
+                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                        No hardware isolation existed. Erroneous programs could overwrite data registers or corrupt
+                        state.
+                    </p>
+                </div>
+                <div class="chassis-panel" style="border-left: 5px solid var(--green);">
+                    <h4 style="color:var(--green); font-size:1.35rem;">[!] HARDWARE IDLE RATIO</h4>
+                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                        Multi-million dollar mainframes sat idle between user bookings while technicians inspected
+                        printouts.
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 4</span>
+                <span>TARGET DURATION: 50s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 9 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">EQUIVALENCE MATRIX // BIOLOGICAL OS</div>
+                <h2 class="slide-title">HUMANS ACTED AS THE OPERATING SYSTEM</h2>
+                <p class="slide-subtitle">MAPPING HUMAN ACTIONS TO MODERN KERNEL SUBSYSTEMS</p>
+            </div>
+
+            <div class="chassis-panel" style="margin-top: 0.4rem;">
+                <table class="hardware-table">
+                    <thead>
+                        <tr>
+                            <th>MODERN OS DUTY</th>
+                            <th>MODERN IMPLEMENTATION</th>
+                            <th>EARLY NO-OS ERA EQUIVALENT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>JOB SCHEDULING</strong></td>
+                            <td>CFS / Priority Queues</td>
+                            <td>Paper sign-up logbooks & wall clocks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PROGRAM LOADING</strong></td>
+                            <td>Executable Loader (<code>execve</code>)</td>
+                            <td>Operators patching cables & mounting tapes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MEMORY ALLOCATION</strong></td>
+                            <td>MMU / Virtual Memory Paging</td>
+                            <td>Programmer manually writes physical addresses</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DEVICE CONTROL</strong></td>
+                            <td>Device Drivers & System Calls</td>
+                            <td>Console operators toggling input switches</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ERROR RECOVERY</strong></td>
+                            <td>Kernel Panics & Interrupt Handlers</td>
+                            <td>Technicians probing tubes with multimeters</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 4</span>
+                <span>TARGET DURATION: 55s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 10 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">EVOLUTIONARY TRANSITION // 1956</div>
+                <h2 class="slide-title">FROM NO-OS TO BATCH MONITORS</h2>
+                <p class="slide-subtitle">THE BIRTH OF SUPERVISORY SOFTWARE</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>DRIVERS OF AUTOMATION</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Economic
+                                    Pressure:</strong> High mainframe costs forced teams to reduce turnaround idle
+                                time.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Batch
+                                    Processing (1950s):</strong> Punch cards grouped into sequential batches on
+                                tape.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content"><strong>Resident
+                                    Monitors:</strong> Primitive software kept in memory to transfer control to the next
+                                job.</span></li>
+                    </ul>
+                </div>
+                <div class="chassis-panel" style="border-color: var(--green);">
+                    <h4><span class="lamp"></span>ARCHITECTURAL PROGRESSION</h4>
+                    <div
+                        style="display: flex; flex-direction: column; gap: 1.1rem; font-family: 'Share Tech Mono'; font-size: 1.05rem;">
+                        <div
+                            style="background: var(--highlight-box); padding: 0.8rem; border-left: 4px solid var(--amber);">
+                            <span style="color:var(--amber); font-weight:700;">1. MANUAL NO-OS:</span> Direct wire
+                            manipulation & manual turnarounds.
+                        </div>
+                        <div
+                            style="background: var(--highlight-box); padding: 0.8rem; border-left: 4px solid var(--green);">
+                            <span style="color:var(--green); font-weight:700;">2. BATCH MONITORS (1956):</span> GM-NAA
+                            I/O automates job-to-job execution.
+                        </div>
+                        <div style="background: var(--highlight-box); padding: 0.8rem; border-left: 4px solid #38BDF8;">
+                            <span style="color:#38BDF8; font-weight:700;">3. MULTIPROGRAMMING (1960s):</span> Concurrent
+                            task scheduling & memory paging.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 5</span>
+                <span>TARGET DURATION: 55s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 11 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">DISMISSAL & DOCUMENTATION</div>
+                <h2 class="slide-title">CONCLUSION & REFERENCES</h2>
+                <p class="slide-subtitle">FINAL SUMMARY & ACADEMIC SOURCES</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>CORE SUMMARY</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Early computing relied
+                                on direct hardware configuration.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Foundational software
+                                concepts were invented on raw plugboards.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Excessive setup latency
+                                made the development of operating systems inevitable.</span></li>
+                    </ul>
+                </div>
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>ARCHIVAL CITATIONS</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Silberschatz, A.,
+                                Galvin, P. B., & Gagne, G. <em>Operating System Concepts</em> (10th ed.).</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">University of
+                                Pennsylvania Archives. <em>ENIAC Technical Reports (1946)</em>.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">Computer History
+                                Museum. <em>UNIVAC I and Early Magnetic Tape Storage</em>.</span></li>
+                        <li><span class="bullet-badge">[&gt;]</span><span class="bullet-content">CCS2303 Operating
+                                Systems & Platforms Group Case Study Guidelines (2026).</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SPEAKER: MEMBER 5</span>
+                <span>TARGET DURATION: 50s</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 12 -->
+        <section class="slide">
+            <div>
+                <div class="serial-tag">TERMINATION SIGNAL // HALT SEQUENCE (1940s–1950s)</div>
+                <h2 class="slide-title">THANK YOU & QUESTIONS</h2>
+                <p class="slide-subtitle">SYSTEM STATE: READY FOR INDIVIDUAL VIVA & QUESTIONS</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="thank-you-box"
+                    style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div
+                        style="font-family: 'VT323', monospace; font-size: 4rem; color: var(--amber); letter-spacing: 4px; margin-bottom: 0.5rem;">
+                        [ THANK YOU ]
+                    </div>
+                    <p
+                        style="font-size: 1.25rem; font-style: italic; line-height: 1.6; color: var(--text-main); max-width: 90%;">
+                        "Before operating systems managed computers, humans had to manage every single gate."
+                    </p>
+                    <div
+                        style="margin-top: 1.5rem; font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; color: var(--green); border-top: 1px dashed var(--card-border); padding-top: 1rem; width: 100%;">
+                        ● CPU HALTED ● LOGIC GATES READY FOR VIVA INQUIRY ●
+                    </div>
+                </div>
+
+                <div class="chassis-panel">
+                    <h4><span class="lamp"></span>GROUP 01 PRESENTATION TEAM</h4>
+                    <ul class="vintage-list">
+                        <li><span class="bullet-badge">[1]</span><span class="bullet-content"><strong>Member 1:</strong>
+                                Concept & Historical Chronology</span></li>
+                        <li><span class="bullet-badge">[2]</span><span class="bullet-content"><strong>Member 2:</strong>
+                                ENIAC Hardware & Plugboard Setup</span></li>
+                        <li><span class="bullet-badge">[3]</span><span class="bullet-content"><strong>Member 3:</strong>
+                                ENIAC Programmers & UNIVAC I</span></li>
+                        <li><span class="bullet-badge">[4]</span><span class="bullet-content"><strong>Member 4:</strong>
+                                Bottlenecks & Humans as the OS</span></li>
+                        <li><span class="bullet-badge">[5]</span><span class="bullet-content"><strong>Member 5:</strong>
+                                Transition to Batch Systems & Conclusion</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>SESSION: CCS2303 GROUP CASE STUDY</span>
+                <span>OPEN FOR INDIVIDUAL VIVA QUESTIONS</span>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Bottom Navigation Buttons -->
+    <div id="nav-hints">
+        <button class="key-btn" onclick="prevSlide()">◀ PREV (LEFT)</button>
+        <button class="key-btn" onclick="nextSlide()">NEXT (RIGHT) ▶</button>
+        <button class="key-btn" onclick="toggleFullScreen()">⛶ FULLSCREEN (F)</button>
+    </div>
+
+    <script>
+        // ==========================================
+        // OPTION C: CLOUD IMAGE URLs
+        // Paste your ImgBB direct URLs below:
+        // ==========================================
+        const CLOUD_IMAGES = {
+            eniacRoom: "https://i.ibb.co/qG60KSv/eniac-room.jpg",
+            storedProgram: "https://i.ibb.co/ccr147YX/edvac-stored.jpg",
+            univacDemo: "https://i.ibb.co/dsVhzYdM/univac-tape.jpg",
+            ibm704: "https://i.ibb.co/0yMmJgBM/ibm704-batch.jpg",
+            eniacPanels: "https://i.ibb.co/qMWFbS1q/eniac-panels.jpg",
+            eniacWiring: "https://i.ibb.co/cXYRQswF/eniac-cables.jpg",
+            womenProgrammers: "https://i.ibb.co/Z600XPQk/women-programmers.jpg"
+        };
+
+        function attachImages() {
+            setImg('img-slide1', CLOUD_IMAGES.eniacRoom, 'ENIAC ROOM (1946)');
+            setImg('img-timeline-1', CLOUD_IMAGES.eniacRoom, 'ENIAC (1946)');
+            setImg('img-timeline-2', CLOUD_IMAGES.storedProgram, 'STORED PROGRAM');
+            setImg('img-timeline-3', CLOUD_IMAGES.univacDemo, 'UNIVAC I (1951)');
+            setImg('img-timeline-4', CLOUD_IMAGES.ibm704, 'IBM 704 / BATCH');
+            setImg('img-slide4', CLOUD_IMAGES.eniacPanels, 'ENIAC ACCUMULATORS');
+            setImg('img-slide5', CLOUD_IMAGES.eniacWiring, 'PLUGBOARD WIRING');
+            setImg('img-slide6', CLOUD_IMAGES.womenProgrammers, 'ORIGINAL SIX');
+            setImg('img-slide7', CLOUD_IMAGES.univacDemo, 'UNIVAC I CONSOLE');
+        }
+
+        function setImg(id, url, title) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.src = url;
+            el.onerror = () => loadFallback(el, title);
+        }
+
+        function loadFallback(imgEl, title) {
+            imgEl.onerror = null;
+            const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+          <rect width="100%" height="100%" fill="#181512"/>
+          <path d="M0 0 L400 250 M400 0 L0 250" stroke="#383025" stroke-width="1"/>
+          <rect x="20" y="20" width="360" height="210" fill="none" stroke="#FFB000" stroke-dasharray="4,4" stroke-width="1.5"/>
+          <circle cx="200" cy="110" r="35" fill="none" stroke="#33FF66" stroke-width="1.5"/>
+          <text x="50%" y="115" fill="#33FF66" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">ARCHIVAL SCHEMATIC</text>
+          <text x="50%" y="175" fill="#EADBC8" font-family="monospace" font-size="12" text-anchor="middle">${title}</text>
+        </svg>
+      `;
+            imgEl.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progress-bar');
+        const counter = document.getElementById('slide-counter');
+        const timerDisplay = document.getElementById('slide-timer');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        let currentSlide = 0;
+        let timerInterval = null;
+        let secondsElapsed = 0;
+
+        function updateSlide() {
+            slides.forEach((slide, idx) => {
+                slide.classList.toggle('active', idx === currentSlide);
+            });
+
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            counter.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+
+            resetTimer();
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            secondsElapsed = 0;
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+            const secs = String(secondsElapsed % 60).padStart(2, '0');
+            timerDisplay.textContent = `${mins}:${secs}`;
+        }
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+
+            if (newTheme === 'light') {
+                themeIcon.textContent = '☾';
+                themeText.textContent = 'DARK MODE';
+            } else {
+                themeIcon.textContent = '☼';
+                themeText.textContent = 'LIGHT MODE';
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullScreen();
+            } else if (e.key === 'l' || e.key === 'L') {
+                toggleTheme();
+            } else if (e.key === 't' || e.key === 'T') {
+                resetTimer();
+            }
+        });
+
+        attachImages();
+        updateSlide();
+    </script>
+</body>
+
+</html>
