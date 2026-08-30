@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Early “No-OS” Era (1940s–1950s) | Group 01</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,7 +90,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             z-index: 1000;
             font-family: 'Share Tech Mono', monospace;
             font-size: 1rem;
@@ -108,7 +108,7 @@
 
         .hud-center {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             color: var(--text-muted);
         }
 
@@ -182,7 +182,7 @@
         .serial-tag {
             font-family: 'VT323', monospace;
             color: var(--amber);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             letter-spacing: 2px;
             display: inline-block;
             border-bottom: 1px dashed var(--amber);
@@ -191,25 +191,26 @@
 
         .slide-title {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             color: var(--text-main);
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-bottom: 0.15rem;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .slide-subtitle {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            margin-bottom: 0.6rem;
         }
 
         .grid-2col {
             flex: 1;
             display: grid;
             grid-template-columns: 1.15fr 0.85fr;
-            gap: 2rem;
+            gap: 1.8rem;
             align-items: stretch;
             margin-bottom: 0.4rem;
         }
@@ -226,7 +227,7 @@
         .chassis-panel {
             background: var(--highlight-box);
             border: 1px solid var(--card-border);
-            padding: 1.4rem 1.6rem;
+            padding: 1.3rem 1.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -237,8 +238,8 @@
         .chassis-panel h4 {
             font-family: 'Share Tech Mono', monospace;
             color: var(--amber);
-            font-size: 1.35rem;
-            margin-bottom: 1.1rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.9rem;
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 6px;
             letter-spacing: 1px;
@@ -247,7 +248,7 @@
         .timeline-card {
             background: var(--highlight-box);
             border: 1px solid var(--card-border);
-            padding: 1.1rem 1.2rem;
+            padding: 1rem 1.1rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -265,31 +266,31 @@
 
         .timeline-header {
             border-bottom: 1px dashed var(--card-border);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
         }
 
         .timeline-year {
             font-family: 'Share Tech Mono', monospace;
             font-weight: 700;
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             letter-spacing: 1px;
         }
 
         .timeline-topic {
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             margin-top: 0.2rem;
             color: var(--text-main);
         }
 
         .timeline-photo {
             flex: 1;
-            min-height: 180px;
-            max-height: 240px;
+            min-height: 160px;
+            max-height: 220px;
             border-radius: 3px;
             overflow: hidden;
             border: 1px solid var(--card-border);
-            margin: 0.8rem 0;
+            margin: 0.7rem 0;
             background: #000;
             position: relative;
         }
@@ -321,10 +322,10 @@
         }
 
         .timeline-desc {
-            font-size: 0.98rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
-            line-height: 1.45;
-            padding-top: 0.5rem;
+            line-height: 1.4;
+            padding-top: 0.4rem;
             border-top: 1px dashed var(--card-border);
         }
 
@@ -337,16 +338,16 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.65rem;
+            gap: 0.6rem;
         }
 
         .vintage-list li {
             display: flex;
             align-items: flex-start;
-            padding: 8px 12px;
-            font-size: 1.15rem;
+            padding: 6px 10px;
+            font-size: 1.05rem;
             color: var(--text-main);
-            line-height: 1.5;
+            line-height: 1.45;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -358,11 +359,10 @@
             flex-shrink: 0;
             color: var(--green);
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
-            margin-right: 14px;
+            margin-right: 12px;
             user-select: none;
-            transition: color 0.2s, transform 0.2s;
         }
 
         .vintage-list li .bullet-content {
@@ -379,13 +379,7 @@
             font-weight: 700;
             background: var(--hover-bg);
             border-left: 4px solid var(--amber);
-            transform: translateX(8px) scale(1.015);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-
-        .vintage-list li:hover .bullet-badge {
-            color: var(--amber);
-            transform: scale(1.15);
+            transform: translateX(6px);
         }
 
         .photo-chassis {
@@ -394,7 +388,7 @@
             background: #000;
             overflow: hidden;
             height: 100%;
-            min-height: 320px;
+            min-height: 280px;
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -405,7 +399,6 @@
         .photo-chassis:hover {
             border-color: var(--amber);
             box-shadow: 0 0 20px var(--amber-glow);
-            transform: scale(1.01);
         }
 
         .photo-chassis img {
@@ -414,11 +407,6 @@
             object-fit: cover;
             display: block;
             filter: grayscale(85%) contrast(120%);
-            transition: filter 0.3s ease;
-        }
-
-        .photo-chassis:hover img {
-            filter: grayscale(10%) contrast(110%);
         }
 
         .photo-label {
@@ -427,68 +415,51 @@
             left: 0;
             width: 100%;
             background: rgba(16, 15, 14, 0.92);
-            padding: 8px 12px;
+            padding: 6px 10px;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--amber);
             border-top: 1px solid var(--card-border);
             z-index: 2;
         }
 
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         table.hardware-table {
             width: 100%;
+            min-width: 580px;
             border-collapse: collapse;
-            font-size: 1.15rem;
-            margin-top: 0.5rem;
-        }
-
-        table.hardware-table tbody:hover tr:not(:hover) {
-            opacity: 0.45;
-            color: var(--dim-text);
-        }
-
-        table.hardware-table tr {
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        table.hardware-table tr:hover {
-            background: var(--hover-bg) !important;
-            font-weight: 700;
-            color: var(--hover-text) !important;
-            transform: scale(1.015);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-        }
-
-        table.hardware-table tr:hover td {
-            border-bottom: 1px solid var(--amber);
-            color: var(--hover-text) !important;
+            font-size: 1.05rem;
+            margin-top: 0.3rem;
         }
 
         table.hardware-table th {
             background: var(--table-header-bg);
             color: var(--amber);
-            padding: 12px 14px;
+            padding: 10px 12px;
             text-align: left;
             font-family: 'Share Tech Mono', monospace;
             border-bottom: 2px solid var(--amber);
-            letter-spacing: 1px;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
         }
 
         table.hardware-table td {
-            padding: 12px 14px;
+            padding: 10px 12px;
             border-bottom: 1px solid var(--card-border);
             color: var(--text-main);
         }
 
         .lamp {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: var(--amber);
-            box-shadow: 0 0 10px var(--amber);
+            box-shadow: 0 0 8px var(--amber);
             margin-right: 8px;
         }
 
@@ -498,14 +469,16 @@
             display: flex;
             justify-content: space-between;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .thank-you-box {
             border: 3px double var(--amber);
             background: var(--highlight-box);
-            padding: 2.5rem;
+            padding: 2rem;
             text-align: center;
             border-radius: 6px;
             animation: finalePulse 1.8s infinite alternate ease-in-out;
@@ -527,7 +500,7 @@
             bottom: 14px;
             right: 20px;
             display: flex;
-            gap: 0.6rem;
+            gap: 0.5rem;
             z-index: 1000;
         }
 
@@ -535,7 +508,7 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            padding: 6px 14px;
+            padding: 6px 12px;
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.85rem;
             cursor: pointer;
@@ -543,9 +516,178 @@
             transition: all 0.2s;
         }
 
-        .key-btn:hover {
+        .key-btn:hover,
+        .key-btn:active {
             border-color: var(--amber);
             color: var(--amber);
+        }
+
+        /* =========================================================================
+           RESPONSIVE DESIGN FOR PORTRAIT / MOBILE / VERTICAL SCREENS (max-width: 900px)
+           ========================================================================= */
+        @media (max-width: 900px) {
+            body {
+                overflow: hidden;
+            }
+
+            #hud {
+                padding: 0 1rem;
+                height: 50px;
+                font-size: 0.85rem;
+            }
+
+            .badge-tag {
+                font-size: 0.75rem;
+                padding: 2px 6px;
+            }
+
+            .hud-center {
+                display: none;
+            }
+
+            #progress-bar {
+                top: 48px;
+            }
+
+            #deck {
+                height: calc(100vh - 50px);
+                margin-top: 50px;
+                align-items: flex-start;
+                padding-top: 8px;
+            }
+
+            .slide {
+                width: 96vw;
+                height: auto;
+                max-height: calc(100vh - 110px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 1.2rem 1.2rem 2.5rem 1.2rem;
+                display: block;
+            }
+
+            .slide.active {
+                display: block;
+            }
+
+            .slide-title {
+                font-size: 1.5rem;
+                margin-top: 0.2rem;
+            }
+
+            .slide-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .grid-2col,
+            .grid-4col {
+                display: flex;
+                flex-direction: column;
+                gap: 1.2rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .photo-chassis {
+                min-height: 200px;
+                max-height: 240px;
+            }
+
+            .timeline-card {
+                min-height: auto;
+            }
+
+            .timeline-photo {
+                min-height: 150px;
+                max-height: 180px;
+            }
+
+            .vintage-list li {
+                font-size: 0.95rem;
+                padding: 6px 8px;
+            }
+
+            .thank-you-box {
+                padding: 1.2rem;
+            }
+
+            .thank-you-box div[style*="font-size: 4rem"] {
+                font-size: 2.5rem !important;
+            }
+
+            .slide-footer {
+                font-size: 0.8rem;
+                margin-top: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            #nav-hints {
+                bottom: 8px;
+                right: 50%;
+                transform: translateX(50%);
+                width: 90%;
+                justify-content: center;
+            }
+
+            .key-btn {
+                flex: 1;
+                text-align: center;
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* =========================================================================
+           PRINT STYLESHEET (CLEAN LANDSCAPE A4 PDF EXPORT)
+           ========================================================================= */
+        @media print {
+            body {
+                overflow: visible !important;
+                height: auto !important;
+                background: var(--bg-base) !important;
+                color: var(--text-main) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            body::before,
+            #hud,
+            #progress-bar,
+            #nav-hints {
+                display: none !important;
+            }
+
+            #deck {
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                margin: 0 !important;
+            }
+
+            .slide {
+                display: flex !important;
+                position: relative !important;
+                opacity: 1 !important;
+                transform: none !important;
+                width: 100% !important;
+                height: 98vh !important;
+                max-height: none !important;
+                overflow: visible !important;
+                margin: 0 0 20px 0 !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                box-shadow: none !important;
+            }
+
+            .grid-2col {
+                display: grid !important;
+                grid-template-columns: 1.15fr 0.85fr !important;
+            }
+
+            .grid-4col {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
         }
     </style>
 </head>
@@ -559,11 +701,11 @@
             <span>TOPIC: THE EARLY “NO-OS” ERA (1940s–1950s)</span>
             <span>⏱ TIME: <span id="slide-timer" class="timer-display">00:00</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1.2rem;">
-            <button class="theme-toggle-btn" onclick="toggleTheme()" title="Press 'L' to switch">
-                <span id="theme-icon">☼</span> <span id="theme-text">LIGHT MODE</span>
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <button class="theme-toggle-btn" onclick="toggleTheme()" title="Switch Theme">
+                <span id="theme-icon">☼</span> <span id="theme-text">LIGHT</span>
             </button>
-            <span id="slide-counter" style="color: var(--amber); font-weight:700; font-size:1.1rem;">01 / 12</span>
+            <span id="slide-counter" style="color: var(--amber); font-weight:700; font-size:1rem;">01 / 12</span>
         </div>
     </div>
     <div id="progress-bar"></div>
@@ -579,11 +721,13 @@
                 </h1>
                 <p class="slide-subtitle">HOW COMPUTERS WORKED BEFORE OPERATING SYSTEM ABSTRACTION</p>
 
-                <div style="margin-top: 0.6rem; font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; color: var(--amber);">
-                  <span>🌐 LIVE PRESENTATION DECK: </span>
-                  <a href="https://katdhyan.github.io/early-no-os-era/" target="_blank" style="color: var(--green); text-decoration: underline; font-weight: bold;">
-                    https://katdhyan.github.io/early-no-os-era/
-                  </a>
+                <div
+                    style="margin: 0.5rem 0 1rem 0; font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; color: var(--amber);">
+                    <span>🌐 LIVE PRESENTATION DECK: </span>
+                    <a href="https://katdhyan.github.io/early-no-os-era/" target="_blank"
+                        style="color: var(--green); text-decoration: underline; font-weight: bold; word-break: break-all;">
+                        https://katdhyan.github.io/early-no-os-era/
+                    </a>
                 </div>
             </div>
 
@@ -645,13 +789,13 @@
                 </div>
                 <div class="chassis-panel" style="border-color: var(--amber);">
                     <h4><span class="lamp"></span>PRIMARY DEFINITION</h4>
-                    <p style="font-size: 1.2rem; font-style: italic; line-height: 1.65; color: var(--text-main);">
+                    <p style="font-size: 1.1rem; font-style: italic; line-height: 1.6; color: var(--text-main);">
                         "A foundational computing era where machines operated without intermediate supervisory software,
                         requiring human operators to perform all job scheduling, hardware configuration, and memory
                         management manually."
                     </p>
                     <div
-                        style="margin-top: 1.5rem; text-align: center; font-family: 'VT323', monospace; font-size: 1.6rem; color: var(--green); letter-spacing: 2px;">
+                        style="margin-top: 1.2rem; text-align: center; font-family: 'VT323', monospace; font-size: 1.4rem; color: var(--green); letter-spacing: 2px;">
                         [PROGRAMMER] ──▶ [PATCHBOARD CORD] ──▶ [BARE HARDWARE]
                     </div>
                 </div>
@@ -897,28 +1041,28 @@
 
             <div class="grid-2col">
                 <div class="chassis-panel" style="border-left: 5px solid var(--amber);">
-                    <h4 style="color:var(--amber); font-size:1.35rem;">[!] SETUP LATENCY OVERHEAD</h4>
-                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                    <h4 style="color:var(--amber);">[!] SETUP LATENCY OVERHEAD</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.5;">
                         Computers performed calculations in milliseconds, but sat idle for hours or days while operators
                         physically patched cables.
                     </p>
                 </div>
                 <div class="chassis-panel" style="border-left: 5px solid var(--amber);">
-                    <h4 style="color:var(--amber); font-size:1.35rem;">[!] HUMAN ERROR PROPAGATION</h4>
-                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                    <h4 style="color:var(--amber);">[!] HUMAN ERROR PROPAGATION</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.5;">
                         A single misplaced jumper cable or faulty switch position ruined multi-hour computational runs.
                     </p>
                 </div>
                 <div class="chassis-panel" style="border-left: 5px solid var(--green);">
-                    <h4 style="color:var(--green); font-size:1.35rem;">[!] ZERO MEMORY BOUNDARIES</h4>
-                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                    <h4 style="color:var(--green);">[!] ZERO MEMORY BOUNDARIES</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.5;">
                         No hardware isolation existed. Erroneous programs could overwrite data registers or corrupt
                         state.
                     </p>
                 </div>
                 <div class="chassis-panel" style="border-left: 5px solid var(--green);">
-                    <h4 style="color:var(--green); font-size:1.35rem;">[!] HARDWARE IDLE RATIO</h4>
-                    <p style="font-size: 1.15rem; line-height: 1.6;">
+                    <h4 style="color:var(--green);">[!] HARDWARE IDLE RATIO</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.5;">
                         Multi-million dollar mainframes sat idle between user bookings while technicians inspected
                         printouts.
                     </p>
@@ -939,43 +1083,45 @@
                 <p class="slide-subtitle">MAPPING HUMAN ACTIONS TO MODERN KERNEL SUBSYSTEMS</p>
             </div>
 
-            <div class="chassis-panel" style="margin-top: 0.4rem;">
-                <table class="hardware-table">
-                    <thead>
-                        <tr>
-                            <th>MODERN OS DUTY</th>
-                            <th>MODERN IMPLEMENTATION</th>
-                            <th>EARLY NO-OS ERA EQUIVALENT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>JOB SCHEDULING</strong></td>
-                            <td>CFS / Priority Queues</td>
-                            <td>Paper sign-up logbooks & wall clocks</td>
-                        </tr>
-                        <tr>
-                            <td><strong>PROGRAM LOADING</strong></td>
-                            <td>Executable Loader (<code>execve</code>)</td>
-                            <td>Operators patching cables & mounting tapes</td>
-                        </tr>
-                        <tr>
-                            <td><strong>MEMORY ALLOCATION</strong></td>
-                            <td>MMU / Virtual Memory Paging</td>
-                            <td>Programmer manually writes physical addresses</td>
-                        </tr>
-                        <tr>
-                            <td><strong>DEVICE CONTROL</strong></td>
-                            <td>Device Drivers & System Calls</td>
-                            <td>Console operators toggling input switches</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ERROR RECOVERY</strong></td>
-                            <td>Kernel Panics & Interrupt Handlers</td>
-                            <td>Technicians probing tubes with multimeters</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="chassis-panel" style="margin-top: 0.2rem;">
+                <div class="table-container">
+                    <table class="hardware-table">
+                        <thead>
+                            <tr>
+                                <th>MODERN OS DUTY</th>
+                                <th>MODERN IMPLEMENTATION</th>
+                                <th>EARLY NO-OS ERA EQUIVALENT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>JOB SCHEDULING</strong></td>
+                                <td>CFS / Priority Queues</td>
+                                <td>Paper sign-up logbooks & wall clocks</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PROGRAM LOADING</strong></td>
+                                <td>Executable Loader (<code>execve</code>)</td>
+                                <td>Operators patching cables & mounting tapes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MEMORY ALLOCATION</strong></td>
+                                <td>MMU / Virtual Memory Paging</td>
+                                <td>Programmer manually writes physical addresses</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DEVICE CONTROL</strong></td>
+                                <td>Device Drivers & System Calls</td>
+                                <td>Console operators toggling input switches</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ERROR RECOVERY</strong></td>
+                                <td>Kernel Panics & Interrupt Handlers</td>
+                                <td>Technicians probing tubes with multimeters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="slide-footer">
@@ -1010,18 +1156,18 @@
                 <div class="chassis-panel" style="border-color: var(--green);">
                     <h4><span class="lamp"></span>ARCHITECTURAL PROGRESSION</h4>
                     <div
-                        style="display: flex; flex-direction: column; gap: 1.1rem; font-family: 'Share Tech Mono'; font-size: 1.05rem;">
+                        style="display: flex; flex-direction: column; gap: 0.8rem; font-family: 'Share Tech Mono'; font-size: 0.95rem;">
                         <div
-                            style="background: var(--highlight-box); padding: 0.8rem; border-left: 4px solid var(--amber);">
+                            style="background: var(--highlight-box); padding: 0.6rem; border-left: 4px solid var(--amber);">
                             <span style="color:var(--amber); font-weight:700;">1. MANUAL NO-OS:</span> Direct wire
                             manipulation & manual turnarounds.
                         </div>
                         <div
-                            style="background: var(--highlight-box); padding: 0.8rem; border-left: 4px solid var(--green);">
+                            style="background: var(--highlight-box); padding: 0.6rem; border-left: 4px solid var(--green);">
                             <span style="color:var(--green); font-weight:700;">2. BATCH MONITORS (1956):</span> GM-NAA
                             I/O automates job-to-job execution.
                         </div>
-                        <div style="background: var(--highlight-box); padding: 0.8rem; border-left: 4px solid #38BDF8;">
+                        <div style="background: var(--highlight-box); padding: 0.6rem; border-left: 4px solid #38BDF8;">
                             <span style="color:#38BDF8; font-weight:700;">3. MULTIPROGRAMMING (1960s):</span> Concurrent
                             task scheduling & memory paging.
                         </div>
@@ -1088,15 +1234,15 @@
                 <div class="thank-you-box"
                     style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <div
-                        style="font-family: 'VT323', monospace; font-size: 4rem; color: var(--amber); letter-spacing: 4px; margin-bottom: 0.5rem;">
+                        style="font-family: 'VT323', monospace; font-size: 3.5rem; color: var(--amber); letter-spacing: 4px; margin-bottom: 0.3rem;">
                         |[ THANK YOU ]|
                     </div>
                     <p
-                        style="font-size: 1.25rem; font-style: italic; line-height: 1.6; color: var(--text-main); max-width: 90%;">
+                        style="font-size: 1.1rem; font-style: italic; line-height: 1.5; color: var(--text-main); max-width: 90%;">
                         "Before operating systems managed computers, humans had to manage every single gate."
                     </p>
                     <div
-                        style="margin-top: 1.5rem; font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; color: var(--green); border-top: 1px dashed var(--card-border); padding-top: 1rem; width: 100%;">
+                        style="margin-top: 1.2rem; font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; color: var(--green); border-top: 1px dashed var(--card-border); padding-top: 0.8rem; width: 100%;">
                         ● CPU HALTED ● LOGIC GATES READY FOR VIVA INQUIRY ●
                     </div>
                 </div>
@@ -1128,9 +1274,9 @@
 
     <!-- Bottom Navigation Buttons -->
     <div id="nav-hints">
-        <button class="key-btn" onclick="prevSlide()">◀ PREV (LEFT)</button>
-        <button class="key-btn" onclick="nextSlide()">NEXT (RIGHT) ▶</button>
-        <button class="key-btn" onclick="toggleFullScreen()">⛶ FULLSCREEN (F)</button>
+        <button class="key-btn" onclick="prevSlide()">◀ PREV</button>
+        <button class="key-btn" onclick="nextSlide()">NEXT ▶</button>
+        <button class="key-btn" onclick="toggleFullScreen()">⛶ FULL</button>
     </div>
 
     <script>
@@ -1196,6 +1342,9 @@
         function updateSlide() {
             slides.forEach((slide, idx) => {
                 slide.classList.toggle('active', idx === currentSlide);
+                if (idx === currentSlide) {
+                    slide.scrollTop = 0;
+                }
             });
 
             const progress = ((currentSlide + 1) / slides.length) * 100;
@@ -1243,10 +1392,10 @@
 
             if (newTheme === 'light') {
                 themeIcon.textContent = '☾';
-                themeText.textContent = 'DARK MODE';
+                themeText.textContent = 'DARK';
             } else {
                 themeIcon.textContent = '☼';
-                themeText.textContent = 'LIGHT MODE';
+                themeText.textContent = 'LIGHT';
             }
         }
 
@@ -1260,6 +1409,7 @@
             }
         }
 
+        // Keyboard Navigation (Desktop & Laptop)
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 nextSlide();
@@ -1273,6 +1423,28 @@
                 resetTimer();
             }
         });
+
+        // Touch Swipe Navigation (Mobile & Tablet)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            if (swipeDistance < -60) {
+                nextSlide();
+            } else if (swipeDistance > 60) {
+                prevSlide();
+            }
+        }
 
         attachImages();
         updateSlide();
